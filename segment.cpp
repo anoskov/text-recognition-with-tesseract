@@ -1,11 +1,7 @@
 #include <opencv2/core/core.hpp>
-#include <opencv2/highgui/highgui.hpp>
 #include <opencv2/imgproc/imgproc.hpp>
-#include <tesseract/baseapi.h>
 
 #include <vector>
-#include <fstream>
-#include <iostream>
 
 #include <segment.h>
 
@@ -26,7 +22,6 @@ std::vector<cv::RotatedRect> findTextAreas(cv::Mat input)
     cv::Mat kernel = cv::getStructuringElement(cv::MORPH_CROSS, cv::Size(3,3));
     cv::Mat dilated;
     cv::dilate(input, dilated, kernel, cv::Point(-1, -1), 5);
-    cv::imshow("Dilated", dilated);
 
     std::vector<std::vector<cv::Point> > contours;
     cv::findContours(dilated, contours, cv::RETR_EXTERNAL, cv::CHAIN_APPROX_SIMPLE);
