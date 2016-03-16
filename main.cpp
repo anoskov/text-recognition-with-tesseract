@@ -14,19 +14,12 @@ tesseract::TessBaseAPI ocr;
 int main(int argc, char *argv[])
 {
     cv::Mat ticket = binarize(cv::imread(argv[1]));
-    auto regions = findTextAreas(ticket);
+    std::string text = identifyText(ticket, "rus");
 
     std::ofstream file;
     file.open("ticket.txt", std::ios::out | std::ios::binary);
-
-    for(auto region : regions)
-    {
-        auto cropped = deskewAndCrop(ticket, region);
-        std::string text = identifyText(cropped, "eng");
-
-        file.write(text.c_str(), std::strlen(text.c_str()));
-        file << std::endl;
-    }
+    file.write(text.c_str(), std::strlen(text.c_str()));
+    file << std::endl;
 
     file.close();
 
