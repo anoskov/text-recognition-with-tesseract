@@ -9,12 +9,16 @@ LIBS += -L/usr/local/opt/opencv3/lib -lopencv_core -lopencv_highgui -lopencv_img
 INCLUDEPATH += /usr/local/opt/tesseract/include
 LIBS += -L/usr/local/lib -ltesseract
 
+INCLUDEPATH += /usr/local/opt/imagemagick/include/ImageMagick-6
+LIBS += -L/usr/local/lib -lMagick++-6.Q16
+
 SOURCES += main.cpp \
-    segment.cpp
+    recognition.cpp \
+    imgprocessing.cpp
 
 HEADERS += \
-    segment.h \
-    recognition.h
+    recognition.h \
+    imgprocessing.h
 
 DISTFILES += \
     .gitignore
