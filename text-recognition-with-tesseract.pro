@@ -15,7 +15,6 @@ SOURCES += main.cpp \
 
 HEADERS += \
     segment.h \
-    recognition.h \
     detection.h
 
 DISTFILES += \

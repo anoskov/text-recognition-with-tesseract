@@ -1,16 +1,15 @@
-#include <opencv2/highgui/highgui.hpp>
-#include <opencv2/imgproc/imgproc.hpp>
+#include <opencv2/text/erfilter.hpp>
+#include  "opencv2/highgui.hpp"
+
+#include  <vector>
+#include  <iostream>
 
 #include <detection.h>
 
-int main(int argc, char *argv[])
+int main(int argc, const char * argv[])
 {
-    cv::Mat input = cv::imread(argv[1]);
-
-    detectText(input);
-    cv::resize(input, input, cv::Size(input.cols/2, input.rows/2));
-    cv::imshow("Grouping", input);
-    cv::waitKey(0);
+    auto input = cv::imread(argv[1]);
+    detectAndExtractText(input);
 
     return 0;
 }
