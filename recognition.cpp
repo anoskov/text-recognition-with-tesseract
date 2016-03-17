@@ -17,8 +17,10 @@ std::string identifyText(cv::Mat input, std::string language)
     return text;
 }
 
-void saveResult(const std::string text, const std::string pathToFile = "./result.txt")
+void saveResult(std::string text, const std::string pathToFile = "./result.txt")
 {
+    // Remove blank lines
+    text.erase(std::unique(text.begin(), text.end(), [] (char a, char b) {return a == '\n' && b == '\n';}), text.end());
     std::ofstream file;
     file.open(pathToFile, std::ios::out | std::ios::binary);
     file.write(text.c_str(), std::strlen(text.c_str()));

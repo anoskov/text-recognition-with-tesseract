@@ -2,6 +2,6 @@
 #define RECOGNITION_H
 
 std::string identifyText(cv::Mat, std::string);
-void saveResult(const std::string, const std::string = "./result.txt");
+void saveResult(std::string, const std::string = "./result.txt");
 
 #endif // RECOGNITION_H
