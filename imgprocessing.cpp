@@ -19,7 +19,9 @@ std::string prepareImg(const std::string file)
 {
     Magick::Image image;
     image.read(file);
-    image.quality(1000);
+    //image.quality(1000);
+    image.density(Magick::Geometry(300,300));
+    //image.scale("10000");
     image.quantizeColorSpace(Magick::GRAYColorspace);
     image.quantizeColors( 256 );
     image.quantize();
