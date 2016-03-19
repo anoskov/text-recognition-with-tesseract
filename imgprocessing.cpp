@@ -1,6 +1,7 @@
 #include <opencv2/core/core.hpp>
 #include <opencv2/imgproc/imgproc.hpp>
 #include <opencv2/imgcodecs/imgcodecs.hpp>
+#include <opencv2/highgui/highgui.hpp>
 #include <Magick++/Image.h>
 
 cv::Mat binarize(cv::Mat input)
@@ -15,27 +16,26 @@ cv::Mat binarize(cv::Mat input)
     return white < black ? binaryImage : ~binaryImage;
 }
 
-std::string prepareImg(const std::string file)
+
+
+Magick::Image prepareImg(const std::string file)
 {
     Magick::Image image;
     image.read(file);
-    //image.quality(1000);
     image.density(Magick::Geometry(300,300));
-    //image.scale("10000");
     image.quantizeColorSpace(Magick::GRAYColorspace);
     image.quantizeColors( 256 );
     image.quantize();
 
-    std::string pathToFile = "./preparedImage.png";
-    image.write(pathToFile);
-
-    return pathToFile;
+    return image;
 }
 
 cv::Mat processImage(const std::string file)
 {
-    cv::Mat preparedImage = cv::imread(file);
-    cv::Mat processedImage = binarize(preparedImage);
+    Magick::Image preparedImage = prepareImg(file);
+    cv::Mat mat(preparedImage.rows(), preparedImage.columns(), CV_8UC3);
+    preparedImage.write(0, 0, preparedImage.columns(), preparedImage.rows(), "BGR", Magick::CharPixel, mat.data);
+    cv::Mat processedImage = binarize(mat);
 
     return processedImage;
 }
